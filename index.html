@@ -4,33 +4,31 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <title>囚徒的记忆迷宫 - 伊水_Uryan的敌厄同人游戏发布页</title>
-    <!-- Font Awesome 6 (免费图标库，用于箭头和语言切换图标) -->
+    <!-- Font Awesome 6 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
+        /* ========= 原有全局样式保留 ========= */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            user-select: none; /* 避免拖动文字造成视觉干扰，不影响复制 */
+            user-select: none;
         }
 
         body {
-            /* 背景图：用户需上传1920x1920图片，命名为 background.png (可修改) */
             background-image: url('images/background.png');
-            /* 固定宽度1920px，高度自动保持比例，水平居中，垂直顶部对齐 */
             background-repeat: no-repeat;
             background-position: center top;
-            background-attachment: scroll;  /* 随滚动自然显示顶部区域 */
-            background-color: #0a0c12;      /* 深色后备背景，两侧留白区域不刺眼 */
+            background-attachment: scroll;
+            background-color: #0a0c12;
             font-family: 'Segoe UI', 'Poppins', 'Roboto', system-ui, -apple-system, sans-serif;
             min-height: 100vh;
             display: flex;
-            align-items: flex-start;    /* 内容从顶部开始，确保上对齐 */
+            align-items: flex-start;
             justify-content: center;
             position: relative;
         }
 
-        /* 主内容容器，负责承载所有可见UI，背景透明，不干扰背景图 */
         .app-container {
             width: 100%;
             max-width: 1400px;
@@ -41,10 +39,9 @@
             display: flex;
             flex-direction: column;
             min-height: 100vh;
-            backdrop-filter: blur(0px); /* 无模糊，让背景清晰可见 */
+            backdrop-filter: blur(0px);
         }
 
-        /* 页面切换的两个板块 */
         .page {
             transition: opacity 0.25s ease, transform 0.3s ease;
             width: 100%;
@@ -66,20 +63,17 @@
             flex: 1;
         }
 
-        /* 标题Logo图片：最大宽度1000px，居中，向下偏移200px */
         .logo-img {
             display: block;
             width: 100%;
-            max-width: 800px;          /* 修改：最大宽度800px */
+            max-width: 800px;
             height: auto;
             margin: 0 auto;
-            /* 向下偏移200px (原margin-top:2rem被替换) */
-            margin-top: 450px;          /* 下偏移200px，符合需求 */
+            margin-top: 450px;
             margin-bottom: 1.5rem;
-            pointer-events: none;       /* 让点击穿透，不影响按钮点击 */
+            pointer-events: none;
         }
 
-        /* 简短说明文字区域 */
         .description-text {
             text-align: center;
             font-size: 1.3rem;
@@ -96,7 +90,6 @@
             border: 1px solid rgba(255,255,240,0.25);
         }
 
-        /* 按钮组 水平排列 (默认一行) */
         .button-group {
             display: flex;
             flex-wrap: wrap;
@@ -105,7 +98,6 @@
             margin: 2rem 0 2.5rem;
         }
 
-        /* 每个按钮 + 备注的独立包装器 */
         .btn-wrapper {
             display: flex;
             flex-direction: column;
@@ -150,7 +142,6 @@
             transform: translateY(2px);
         }
 
-        /* 备注文本框样式：透明底、无边框、白色字体，小字号 */
         .btn-note {
             background: transparent;
             border: none;
@@ -164,13 +155,9 @@
             white-space: normal;
             font-weight: 600;
             letter-spacing: 0.3px;
-            backdrop-filter: none;
-            box-shadow: none;
-            text-shadow: none;
             user-select: text;
         }
 
-        /* 第二页文本框区域 (更新日志/说明) */
         .info-box {
             background: rgba(10, 12, 18, 0.75);
             backdrop-filter: blur(12px);
@@ -211,7 +198,6 @@
             margin-bottom: 0.4rem;
         }
 
-        /* 修改第二页中的超链接颜色为白色，并增加下划线提高可读性 */
         .info-box a {
             color: #ffffff;
             text-decoration: underline;
@@ -223,7 +209,6 @@
             text-decoration: none;
         }
 
-        /* 固定箭头（左右滑动） - 固定在视口两侧，垂直居中 */
         .nav-arrow {
             position: fixed;
             top: 50%;
@@ -260,7 +245,6 @@
             right: 20px;
         }
 
-        /* 语言切换按钮 - 左上角 */
         .lang-switch {
             position: fixed;
             top: 24px;
@@ -300,7 +284,6 @@
             color: white;
         }
 
-        /* ========= 新增：右上角用户信息标签（大小风格与语言切换一致） ========= */
         .user-profile {
             position: fixed;
             top: 24px;
@@ -318,7 +301,6 @@
             transition: all 0.2s ease;
         }
         
-        /* 作者超链接样式 */
         .user-profile .author-link {
             color: #eeddbb;
             text-decoration: none;
@@ -336,7 +318,6 @@
             text-decoration: underline;
         }
         
-        /* 圆形头像样式 */
         .user-avatar {
             width: 50px;
             height: 50px;
@@ -357,7 +338,6 @@
             transform: scale(1.02);
         }
         
-        /* 响应式调整：窄屏时右上角标签稍微缩小内边距和间距，保持不重叠 */
         @media (max-width: 800px) {
             .app-container {
                 padding: 1.2rem 1.5rem;
@@ -392,7 +372,6 @@
             .arrow-right {
                 right: 12px;
             }
-            /* 右上角标签微调 */
             .user-profile {
                 top: 16px;
                 right: 16px;
@@ -413,7 +392,6 @@
             }
         }
         
-        /* 超小屏（手机横竖）确保标签内文字不折行且头像适应 */
         @media (max-width: 480px) {
             .user-profile {
                 padding: 0px 0px;
@@ -428,115 +406,190 @@
             }
         }
 
-        /* ========= 核心修改：窄屏幕时按钮垂直排列，采用美观样式 ========= */
         @media (max-width: 550px) {
             .button-group {
-                flex-direction: column;      /* 水平一行改为垂直一列 */
-                align-items: center;         /* 居中对齐 */
-                gap: 1.2rem;                /* 按钮之间舒适间距，略微缩小让布局更紧凑 */
+                flex-direction: column;
+                align-items: center;
+                gap: 1.2rem;
                 width: 100%;
                 margin: 2rem 0 2.5rem;
             }
-            
-            /* 垂直排列时每个按钮包装器宽度占满，内部按钮居中 */
             .btn-wrapper {
                 width: 100%;
                 align-items: center;
             }
-            
-            /* 按钮本身宽度舒适且居中，视觉整齐 */
             .button-group .game-btn {
                 width: 90%;
                 max-width: 280px;
-                justify-content: center;    /* 文字图标整体居中 */
+                justify-content: center;
                 padding: 0.7rem 1rem;
                 font-size: 1rem;
             }
-            
-            /* 备注文字跟随按钮宽度，窄屏适当加宽最大宽度并换行友好 */
             .btn-note {
                 max-width: 260px;
                 font-size: 0.7rem;
                 margin-top: 6px;
             }
-            
-            /* 保持语言切换按钮在小屏幕下位置适配，与原始版本一致，不额外改动其他 */
             .lang-switch {
                 top: 12px;
                 left: 12px;
                 padding: 5px 12px;
             }
-            /* 右上角也随屏幕缩小位置微调 */
             .user-profile {
                 top: 12px;
                 right: 12px;
             }
         }
-        /* 其他所有内容（背景、箭头、第二页、脚本等）完全保持原始版本不变 */
 
-        /* 底部留白自然 */
         footer {
             text-align: center;
             font-size: 0.75rem;
             color: rgba(240, 230, 210, 0.5);
             margin-top: 0.3rem;
         }
+
+        /* ========= 加载动画覆盖层样式 (修复淡出) ========= */
+        #loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #faf7f0;
+            z-index: 10000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            transition: opacity 0.9s cubic-bezier(0.2, 0.9, 0.4, 1.1), visibility 0.9s;
+            will-change: opacity, visibility;
+            backdrop-filter: blur(2px);
+        }
+        
+        #loading-overlay.fade-out {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+        
+        .loading-content {
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            max-width: 90%;
+        }
+        
+        .loading-logo {
+            width: 100%;
+            max-width: 300px;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+            margin-bottom: 100px;
+            pointer-events: none;
+            filter: drop-shadow(0 8px 20px rgba(0,0,0,0.05));
+        }
+        
+        .progress-bar-container {
+            width: 320px;
+            max-width: 70vw;
+            height: 8px;
+            background-color: #2c2a28;
+            border-radius: 20px;
+            margin-top: 40px;
+            overflow: hidden;
+            box-shadow: inset 0 1px 2px rgba(0,0,0,0.2), 0 1px 0 rgba(255,255,240,0.2);
+        }
+        
+        .progress-fill {
+            width: 0%;
+            height: 100%;
+            background: #1e1b17;
+            border-radius: 20px;
+            transition: width 0.2s ease-out;
+            box-shadow: 0 0 2px #2b241c;
+        }
+        
+        .progress-percent {
+            margin-top: 12px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: #5a4a38;
+            letter-spacing: 1px;
+            font-family: monospace;
+            background: rgba(0,0,0,0.05);
+            padding: 4px 12px;
+            border-radius: 40px;
+            display: inline-block;
+        }
+        
+        body.loading-active {
+            overflow: hidden;
+        }
+        
+        @media (max-width: 400px) {
+            .loading-logo {
+                max-width: 85%;
+            }
+            .progress-bar-container {
+                width: 260px;
+            }
+        }
     </style>
 </head>
 <body>
 
-<!-- 左上角语言切换 -->
+<!-- 加载动画层 -->
+<div id="loading-overlay">
+    <div class="loading-content">
+        <img class="loading-logo" src="images/loading-logo.png" alt="Loading Logo" id="loadingLogoImg">
+        <div class="progress-bar-container">
+            <div class="progress-fill" id="progressFill"></div>
+        </div>
+        <div class="progress-percent" id="progressPercent">0%</div>
+    </div>
+</div>
+
 <div class="lang-switch">
     <button class="lang-btn active" data-lang="zh">中文</button>
     <button class="lang-btn" data-lang="en">English</button>
 </div>
 
-<!-- 新增：右上角头像标签 (大小与语言切换一致，左边超链接文本 + 右边圆形头像) -->
 <div class="user-profile">
     <a class="author-link" href="https://space.bilibili.com/1645171" target="_blank" rel="noopener noreferrer">　伊水_Uryan</a>
     <img class="user-avatar" src="images/avatar.png" alt="avatar">
 </div>
 
-<!-- 左侧箭头（仅第二页显示） -->
 <div class="nav-arrow arrow-left" id="arrowLeft" style="display: none;">
     <i class="fas fa-chevron-left"></i>
 </div>
 
-<!-- 右侧箭头（仅第一页显示） -->
 <div class="nav-arrow arrow-right" id="arrowRight">
     <i class="fas fa-chevron-right"></i>
 </div>
 
 <div class="app-container">
-    <!-- 主页：Logo、说明文字、下载按钮组 -->
     <div class="page page-home" id="pageHome">
         <div class="home-content" style="width: 100%; display: flex; flex-direction: column; align-items: center;">
-            <!-- Logo图片：中文/英文版动态切换，样式已修改最大宽度1000px，向下偏移200px -->
             <img id="mainLogo" class="logo-img" src="images/logo-cn.png" alt="Main Logo">
-            
             <div class="description-text" id="descText">
                 敌厄同人游戏《囚徒的记忆迷宫》，试玩版已发布！
             </div>
-            
-            <!-- 按钮区域：每个按钮独立包装，下方带备注文本框 -->
             <div class="button-group">
-                <!-- Itch 按钮 + 备注 -->
                 <div class="btn-wrapper">
                     <a class="game-btn" id="itchBtn" href="https://uryankarl.itch.io/myphrpg-maze" target="_blank" rel="noopener noreferrer">
                         <i class="fab fa-itch-io"></i> Itch网页端
                     </a>
                     <div class="btn-note">点开即玩，可全屏，要翻墙</div>
                 </div>
-                
-                <!-- Github 按钮 + 备注 -->
                 <div class="btn-wrapper">
                     <a class="game-btn" id="githubBtn" href="game/index.html" target="_blank" rel="noopener noreferrer">
                         <i class="fab fa-github"></i> github网页端
                     </a>
                     <div class="btn-note">点开即玩，无需翻墙，不能全屏</div>
                 </div>
-                
-                <!-- Win端下载 按钮 + 备注 -->
                 <div class="btn-wrapper">
                     <a class="game-btn" id="winDownloadBtn">
                         <i class="fab fa-windows"></i> Win端下载
@@ -547,21 +600,17 @@
         </div>
     </div>
 
-    <!-- 第二页：更新日志 / 其他说明 (文本框) -->
     <div class="page page-info" id="pageInfo">
         <div class="info-box" id="infoBoxContent">
-            <!-- 动态填充中英文内容 -->
             <h2 id="infoTitle">📘 更新日志 & 游戏说明</h2>
-            <div id="infoBody">
-            <!-- 动态内容 -->
-            </div>
+            <div id="infoBody"></div>
         </div>
     </div>
     <footer>© 伊水_Uryan | 敌厄同人RPG《囚徒的记忆迷宫》发布页</footer>
 </div>
 
 <script>
-    // ---------- 语言资源库 ----------
+    // ---------- 多语言资源 ----------
     const resources = {
         zh: {
             desc: "敌厄同人RPG，试玩版发布",
@@ -588,26 +637,23 @@
                     </ul>
                 `
             },
-            logoFile: "images/logo-cn.png",    // 中文版logo图片 (透明png 宽度1920，但CSS限制最大1000px)
+            logoFile: "images/logo-cn.png",
         },
         en: {
             desc: "EN version is currently not available yet.",
             info: {
-                title: "📘Notes & Game Info",
+                title: "📘 Notes & Game Info",
                 body: `
                     <p>✨ EN version is currently not available yet!</p>
                 `
             },
-            logoFile: "images/logo-en.png",    // 英文版logo图片
+            logoFile: "images/logo-en.png",
         }
     };
 
-    // 当前语言: 'zh' 或 'en'
     let currentLang = 'zh';
-    // 当前页面: 'home' 或 'info'
     let currentPage = 'home';
 
-    // DOM 元素
     const pageHome = document.getElementById('pageHome');
     const pageInfo = document.getElementById('pageInfo');
     const arrowLeft = document.getElementById('arrowLeft');
@@ -615,26 +661,16 @@
     const descTextElem = document.getElementById('descText');
     const mainLogo = document.getElementById('mainLogo');
     const infoBoxContent = document.getElementById('infoBoxContent');
-    // 下载按钮
     const winDownloadBtn = document.getElementById('winDownloadBtn');
     
-    // 辅助函数: 更新所有文本/logo (基于当前语言)
     function updateLanguage() {
         const langData = resources[currentLang];
         if (!langData) return;
-        
-        // 更新主页说明文字
         if (descTextElem) descTextElem.innerText = langData.desc;
-        
-        // 更新Logo图片 (注意：图片最大宽度1000px及偏移已经在样式表中定义)
         if (mainLogo) {
             mainLogo.src = langData.logoFile;
-            mainLogo.onerror = () => {
-                console.warn(`Logo图片加载失败，请确保路径正确: ${langData.logoFile}`);
-            };
+            mainLogo.onerror = () => console.warn(`Logo加载失败: ${langData.logoFile}`);
         }
-        
-        // 更新第二页文本框内容 (保留格式与结构)
         if (infoBoxContent) {
             infoBoxContent.innerHTML = `
                 <h2 id="infoTitle">${langData.info.title}</h2>
@@ -643,12 +679,10 @@
         }
     }
     
-    // 切换页面函数
     function showHomePage() {
         pageHome.style.display = 'flex';
         pageInfo.style.display = 'none';
         currentPage = 'home';
-        // 控制箭头显隐: 主页显示右箭头，隐藏左箭头
         arrowRight.style.display = 'flex';
         arrowLeft.style.display = 'none';
     }
@@ -661,30 +695,14 @@
         arrowLeft.style.display = 'flex';
     }
     
-    // 右划: 从主页切换到第二页
-    function swipeToNext() {
-        if (currentPage === 'home') {
-            showInfoPage();
-        }
-    }
+    function swipeToNext() { if (currentPage === 'home') showInfoPage(); }
+    function swipeToPrev() { if (currentPage === 'info') showHomePage(); }
     
-    // 左划: 从第二页返回主页
-    function swipeToPrev() {
-        if (currentPage === 'info') {
-            showHomePage();
-        }
-    }
-    
-    // 初始化事件监听、默认语言等
     function initEventListeners() {
-        // 左右箭头点击
         arrowRight.addEventListener('click', swipeToNext);
         arrowLeft.addEventListener('click', swipeToPrev);
-        
-        // 语言切换按钮
         const zhBtn = document.querySelector('.lang-btn[data-lang="zh"]');
         const enBtn = document.querySelector('.lang-btn[data-lang="en"]');
-        
         zhBtn.addEventListener('click', () => {
             if (currentLang === 'zh') return;
             currentLang = 'zh';
@@ -692,7 +710,6 @@
             enBtn.classList.remove('active');
             updateLanguage();
         });
-        
         enBtn.addEventListener('click', () => {
             if (currentLang === 'en') return;
             currentLang = 'en';
@@ -700,8 +717,6 @@
             zhBtn.classList.remove('active');
             updateLanguage();
         });
-        
-        // Win端下载文件：提供release下载链接（可自行替换）
         winDownloadBtn.addEventListener('click', (e) => {
             e.preventDefault();
             const downloadUrl = 'https://github.com/UryanKarl/myphRPG-maze-webpage/releases/download/continuous-build/MyPhRPG-maze-win.zip';
@@ -714,58 +729,178 @@
         });
     }
     
-    // 处理背景图片和备用提示
-    function validateBackground() {
-        const testImg = new Image();
-        testImg.src = 'images/background.png';
-        testImg.onerror = () => console.warn('背景图片 images/background.png 未找到，请上传1920x1920的背景图到images文件夹内');
+    // ========= 完全重构预加载 + 进度条逻辑 (修复版本) =========
+    function preloadAllImagesAndShowWebsite() {
+        const overlay = document.getElementById('loading-overlay');
+        const progressFill = document.getElementById('progressFill');
+        const percentSpan = document.getElementById('progressPercent');
+        const startTime = Date.now();
+        let loadedCount = 0;
+        let totalCount = 0;
+        let loadingCompleted = false;
+        let fadeOutTimer = null;
+
+        // 1. 强制重置进度条显示
+        if (progressFill) progressFill.style.width = '0%';
+        if (percentSpan) percentSpan.innerText = '0%';
+
+        // 2. 收集所有图片 URL（绝对路径）
+        const imageUrlSet = new Set();
+
+        // 添加背景图 (通过解析已存在的样式)
+        const bgImage = getComputedStyle(document.body).backgroundImage;
+        if (bgImage && bgImage !== 'none') {
+            const urlMatch = bgImage.match(/url\(["']?([^"')]+)["']?\)/);
+            if (urlMatch && urlMatch[1]) {
+                try {
+                    imageUrlSet.add(new URL(urlMatch[1], window.location.href).href);
+                } catch (e) {}
+            }
+        }
+
+        // 页面内所有 <img> 元素 (包含 loading-logo)
+        document.querySelectorAll('img').forEach(img => {
+            if (img.src) {
+                try {
+                    imageUrlSet.add(new URL(img.src, window.location.href).href);
+                } catch (e) {}
+            }
+        });
+
+        // 手动补充必须的资源 (logo和头像)
+        const essentialUrls = [
+            'images/logo-cn.png',
+            'images/logo-en.png',
+            'images/avatar.png',
+            'images/loading-logo.png'   // 让 loading logo 也参与计数
+        ];
+        essentialUrls.forEach(path => {
+            try {
+                imageUrlSet.add(new URL(path, window.location.href).href);
+            } catch (e) {}
+        });
+
+        const uniqueUrls = Array.from(imageUrlSet);
+        totalCount = uniqueUrls.length;
+
+        // 更新进度条的函数 (保证不超过100)
+        function updateProgress() {
+            let percent = totalCount === 0 ? 100 : Math.floor((loadedCount / totalCount) * 100);
+            percent = Math.min(percent, 100);
+            if (progressFill) progressFill.style.width = percent + '%';
+            if (percentSpan) percentSpan.innerText = percent + '%';
+
+            // 所有图片加载完毕 (包括0张图的情况)
+            if (loadedCount >= totalCount && !loadingCompleted) {
+                loadingCompleted = true;
+                scheduleFadeOut(startTime, overlay);
+            }
+        }
+
+        // 单张图片加载完成回调
+        function onImageLoadOrError() {
+            loadedCount++;
+            updateProgress();
+        }
+
+        // 如果没有任何图片，直接淡出
+        if (totalCount === 0) {
+            scheduleFadeOut(startTime, overlay);
+            return;
+        }
+
+        // 超时保护：15秒后强制结束 (避免网络卡死)
+        const timeoutId = setTimeout(() => {
+            if (!loadingCompleted) {
+                console.warn('⏰ 预加载超时，强制结束');
+                loadedCount = totalCount;   // 强制补满
+                updateProgress();
+            }
+        }, 15000);
+
+        // 为每个URL创建Image对象并加载
+        uniqueUrls.forEach(url => {
+            const img = new Image();
+            img.onload = onImageLoadOrError;
+            img.onerror = onImageLoadOrError;  // 失败也计数，防止进度条卡死
+            img.src = url;
+            // 如果图片已经缓存，立即触发load/error (通过上面的回调)
+        });
+
+        // 淡出调度 (保证至少显示 2.0 秒，避免一闪而过)
+        function scheduleFadeOut(start, overlayEl) {
+            if (fadeOutTimer) return;
+            const elapsed = Date.now() - start;
+            const minDisplay = 2000;   // 至少展示2秒
+            const remaining = Math.max(0, minDisplay - elapsed);
+
+            // 进度条强制100%
+            if (progressFill) progressFill.style.width = '100%';
+            if (percentSpan) percentSpan.innerText = '100%';
+
+            fadeOutTimer = setTimeout(() => {
+                if (overlayEl) {
+                    overlayEl.classList.add('fade-out');
+                    // 等待CSS过渡结束后隐藏元素 (避免遮挡点击)
+                    setTimeout(() => {
+                        if (overlayEl) overlayEl.style.display = 'none';
+                        document.body.classList.remove('loading-active');
+                    }, 1000);  // 与CSS的0.9s过渡匹配
+                }
+                clearTimeout(timeoutId);
+            }, remaining);
+        }
+
+        // 初始更新一次
+        updateProgress();
     }
     
-    // 页面初始化调用
-    function init() {
+    // 原有站点初始化
+    function initOriginalSite() {
         initEventListeners();
-        // 设置默认语言中文，并确保所有内容正确
         currentLang = 'zh';
         const zhBtn = document.querySelector('.lang-btn[data-lang="zh"]');
         const enBtn = document.querySelector('.lang-btn[data-lang="en"]');
         if (zhBtn) zhBtn.classList.add('active');
         if (enBtn) enBtn.classList.remove('active');
         updateLanguage();
-        // 初始显示主页
         showHomePage();
-        validateBackground();
-        
-        // 为所有外部链接添加安全属性 (Itch / github 链接已经具备target="_blank")
-        console.log("发布页面已加载 — 囚徒的记忆迷宫 (右上角已添加作者标签+圆形头像，Logo最大宽度1000px并下移200px)");
-        
-        // 第二页内容滚动优化
+        // 为info-box优化滚动体验
         const infoDiv = document.querySelector('.info-box');
         if(infoDiv) {
             infoDiv.style.overflowY = 'auto';
             infoDiv.style.maxHeight = '70vh';
         }
-    }
-    
-    // 启动
-    init();
-    
-    // 确保所有按钮点击不产生奇怪冒泡
-    document.querySelectorAll('.game-btn').forEach(btn => {
-        if(btn.id !== 'winDownloadBtn') {
-            btn.addEventListener('click', (e) => {
-                e.stopPropagation();
-            });
-        }
-    });
-    
-    // 为右上角头像添加额外的fallback (如果图片加载失败，emoji占位)
-    const avatarImg = document.querySelector('.user-avatar');
-    if(avatarImg) {
-        avatarImg.addEventListener('error', function() {
-            if(!this.src.includes('data:image')) {
-                this.src = 'data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\'%3E%3Ccircle cx=\'50\' cy=\'50\' r=\'50\' fill=\'%23b87c4f\'/%3E%3Ctext x=\'50\' y=\'67\' font-size=\'50\' text-anchor=\'middle\' fill=\'%23fff\'%3E🙂%3C/text%3E%3C/svg%3E';
+        // 为所有外部链接添加安全停止冒泡
+        document.querySelectorAll('.game-btn').forEach(btn => {
+            if(btn.id !== 'winDownloadBtn') {
+                btn.addEventListener('click', (e) => e.stopPropagation());
             }
         });
+        // 头像容错
+        const avatarImg = document.querySelector('.user-avatar');
+        if(avatarImg) {
+            avatarImg.addEventListener('error', function() {
+                if(!this.src.includes('data:image')) {
+                    this.src = 'data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\'%3E%3Ccircle cx=\'50\' cy=\'50\' r=\'50\' fill=\'%23b87c4f\'/%3E%3Ctext x=\'50\' y=\'67\' font-size=\'50\' text-anchor=\'middle\' fill=\'%23fff\'%3E🙂%3C/text%3E%3C/svg%3E';
+                }
+            });
+        }
+    }
+    
+    // 页面启动：先显示加载动画，初始化站点内容，然后执行预加载+进度条逻辑
+    document.addEventListener('DOMContentLoaded', function() {
+        document.body.classList.add('loading-active');
+        initOriginalSite();               // 页面逻辑初始化 (此时被加载层遮盖)
+        preloadAllImagesAndShowWebsite(); // 预加载资源并更新进度，最后淡出加载层
+    });
+    
+    // 加载层logo容错
+    const loadingLogoImg = document.getElementById('loadingLogoImg');
+    if(loadingLogoImg) {
+        loadingLogoImg.onerror = () => {
+            console.warn('请将透明底800x800px图片放置于 images/loading-logo.png，但进度条不受影响');
+        };
     }
 </script>
 </body>
