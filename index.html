@@ -831,7 +831,7 @@
         function scheduleFadeOut(start, overlayEl) {
             if (fadeOutTimer) return;
             const elapsed = Date.now() - start;
-            const minDisplay = 2000;   // 至少展示2秒
+            const minDisplay = 1000;   // 至少展示2秒
             const remaining = Math.max(0, minDisplay - elapsed);
 
             // 进度条强制100%
