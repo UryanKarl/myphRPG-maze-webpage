@@ -3,36 +3,29 @@ name: Package and Release
 on:
   push:
     paths:
-      - 'windownloads/**'        # 只要 game_src 下有变化就触发
-    branches: [ main ]
+      - 'windownloads/**'   # 确保这个文件夹名和你仓库里的一致
+    branches: [ main ]      # 确保这个分支名和你的一致，通常是 main 或 master
 
 permissions:
-  contents: write            # 允许创建 Release 和上传附件
+  contents: write          # 显式授予写入权限，用于创建 Release
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-
+      
       - name: Zip game source files
         run: |
           zip -r MyPhRPG-maze-win.zip windownloads/
-
-      - name: Get current date and short SHA
-        id: vars
-        run: |
-          echo "TAG_NAME=build-$(date +'%Y%m%d-%H%M%S')" >> $GITHUB_ENV
-          echo "RELEASE_NAME=Auto-build $(date +'%Y-%m-%d %H:%M:%S')" >> $GITHUB_ENV
-
+      
       - name: Create Release and upload zip
         uses: softprops/action-gh-release@v1
         with:
-          tag_name: ${{ env.TAG_NAME }}
-          name: ${{ env.RELEASE_NAME }}
+          tag_name: continuous-build
+          name: Continuous Build
           files: MyPhRPG-maze-win.zip
           body: |
             自动打包的游戏文件，点击下方“Assets”下载。
-            更新内容请查看提交记录。
           draft: false
-          prerelease: false
+          prerelease: true  # 先设为预发布版本，更安全
