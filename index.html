@@ -155,7 +155,7 @@
         .btn-note {
             background: transparent;
             border: none;
-            color: #ffffff;       /* 柔和灰色 */
+            color: #ffffff;       /* 白色 */
             font-size: 0.7rem;
             line-height: 1.4;
             margin-top: 8px;
@@ -168,7 +168,6 @@
             backdrop-filter: none;
             box-shadow: none;
             text-shadow: none;
-            transition: none;
             /* 允许用户选择文本（方便复制备注内容） */
             user-select: text;
         }
@@ -212,6 +211,18 @@
         .info-box li {
             margin-left: 1.8rem;
             margin-bottom: 0.4rem;
+        }
+
+        /* 修改第二页中的超链接颜色为白色，并增加下划线提高可读性 */
+        .info-box a {
+            color: #ffffff;
+            text-decoration: underline;
+            transition: opacity 0.2s ease;
+        }
+
+        .info-box a:hover {
+            opacity: 0.8;
+            text-decoration: none;
         }
 
         /* 固定箭头（左右滑动） - 固定在视口两侧，垂直居中 */
@@ -471,10 +482,8 @@
                     <h3>🧩 联系作者</h3>
                     <ul>
                         <li>B站@伊水_Uryan</li>
-                        <li>或在本视频评论区留言。</li>
+                        <li>在<a href="https://www.bilibili.com/video/BV1SJDsBVE6G/" target="_blank" rel="noopener noreferrer">本视频</a>评论区留言</li>
                     </ul>
-                    <h3>📘 反馈指南</h3>
-                    <p>畅所欲言。</p>
                 `
             },
             logoFile: "images/logo-cn.png",    // 中文版logo图片 (透明png 宽度1920)
@@ -642,7 +651,7 @@
         
         // 为所有外部链接添加安全属性 (Itch / github 链接已经具备target="_blank")
         // 确保Win下载按钮防误判，添加额外样式说明
-        console.log("发布页面已加载 — 囚徒的记忆迷宫 (已添加透明备注框)");
+        console.log("发布页面已加载 — 囚徒的记忆迷宫 (已添加透明备注框，联系作者部分新增本视频链接，颜色为白色)");
         
         // 可选：对第二页内容滚动平滑
         const infoDiv = document.querySelector('.info-box');
@@ -685,6 +694,7 @@
     // 6. 语言切换，文本与logo同时切换 ✔️
     // 7. 屏幕宽度过窄时(≤550px)三个按钮垂直排列一列，并且美观（居中，宽度舒适，间距合理），完美适配手机/窄屏设备 ✔️
     // 8. 三个按钮下方各加一个文本框，透明底无边框背景，灰色字体，备注内容精准 ✔️
+    // 9. 联系作者部分新增“在本视频评论区留言”，链接颜色为白色，清晰可见 ✔️
 </script>
 </body>
 </html>
