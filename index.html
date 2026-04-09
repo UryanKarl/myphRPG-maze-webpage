@@ -105,6 +105,17 @@
             margin: 2rem 0 2.5rem;
         }
 
+        /* 每个按钮 + 备注的独立包装器 */
+        .btn-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            /* 无背景、无边框，仅作为布局容器 */
+            background: transparent;
+            border: none;
+        }
+
         .game-btn {
             background: rgba(20, 20, 30, 0.85);
             backdrop-filter: blur(8px);
@@ -138,6 +149,28 @@
 
         .game-btn:active {
             transform: translateY(2px);
+        }
+
+        /* 备注文本框样式：透明底、无边框、灰色字体，小字号 */
+        .btn-note {
+            background: transparent;
+            border: none;
+            color: #ffffff;       /* 柔和灰色 */
+            font-size: 0.7rem;
+            line-height: 1.4;
+            margin-top: 8px;
+            text-align: center;
+            max-width: 220px;      /* 限制宽度避免过于松散，与按钮视觉对齐 */
+            word-break: break-word;
+            white-space: normal;
+            font-weight: 600;
+            letter-spacing: 0.3px;
+            backdrop-filter: none;
+            box-shadow: none;
+            text-shadow: none;
+            transition: none;
+            /* 允许用户选择文本（方便复制备注内容） */
+            user-select: text;
         }
 
         /* 第二页文本框区域 (更新日志/说明) */
@@ -271,6 +304,10 @@
                 padding: 0.6rem 1.2rem;
                 font-size: 0.9rem;
             }
+            .btn-note {
+                font-size: 0.65rem;
+                max-width: 200px;
+            }
             .info-box {
                 padding: 1.3rem 1.5rem;
                 width: 95%;
@@ -296,19 +333,31 @@
             .button-group {
                 flex-direction: column;      /* 水平一行改为垂直一列 */
                 align-items: center;         /* 居中对齐 */
-                gap: 1rem;                  /* 按钮之间舒适间距 */
+                gap: 1.2rem;                /* 按钮之间舒适间距，略微缩小让布局更紧凑 */
                 width: 100%;
-                /* 保持原有的上下外边距，不改变布局位置 */
                 margin: 2rem 0 2.5rem;
             }
             
-            /* 垂直排列时每个按钮宽度舒适且居中，视觉整齐 */
+            /* 垂直排列时每个按钮包装器宽度占满，内部按钮居中 */
+            .btn-wrapper {
+                width: 100%;
+                align-items: center;
+            }
+            
+            /* 按钮本身宽度舒适且居中，视觉整齐 */
             .button-group .game-btn {
                 width: 90%;
                 max-width: 280px;
                 justify-content: center;    /* 文字图标整体居中 */
                 padding: 0.7rem 1rem;
                 font-size: 1rem;
+            }
+            
+            /* 备注文字跟随按钮宽度，窄屏适当加宽最大宽度并换行友好 */
+            .btn-note {
+                max-width: 260px;
+                font-size: 0.7rem;
+                margin-top: 6px;
             }
             
             /* 保持语言切换按钮在小屏幕下位置适配，与原始版本一致，不额外改动其他 */
@@ -357,16 +406,31 @@
                 敌厄同人游戏《囚徒的记忆迷宫》，试玩版已发布！
             </div>
             
+            <!-- 按钮区域：每个按钮独立包装，下方带备注文本框（透明底，灰色字） -->
             <div class="button-group">
-                <a class="game-btn" id="itchBtn" href="https://uryankarl.itch.io/myphrpg-maze" target="_blank" rel="noopener noreferrer">
-                    <i class="fab fa-itch-io"></i> Itch网页端
-                </a>
-                <a class="game-btn" id="githubBtn" href="https://uryankarl.github.io/MyPhRPG-maze/" target="_blank" rel="noopener noreferrer">
-                    <i class="fab fa-github"></i> github网页端
-                </a>
-                <a class="game-btn" id="winDownloadBtn">
-                    <i class="fab fa-windows"></i> Win端下载
-                </a>
+                <!-- Itch 按钮 + 备注 -->
+                <div class="btn-wrapper">
+                    <a class="game-btn" id="itchBtn" href="https://uryankarl.itch.io/myphrpg-maze" target="_blank" rel="noopener noreferrer">
+                        <i class="fab fa-itch-io"></i> Itch网页端
+                    </a>
+                    <div class="btn-note">点开即玩，可全屏，要翻墙</div>
+                </div>
+                
+                <!-- Github 按钮 + 备注 -->
+                <div class="btn-wrapper">
+                    <a class="game-btn" id="githubBtn" href="https://uryankarl.github.io/MyPhRPG-maze/" target="_blank" rel="noopener noreferrer">
+                        <i class="fab fa-github"></i> github网页端
+                    </a>
+                    <div class="btn-note">点开即玩，无需翻墙，不能全屏</div>
+                </div>
+                
+                <!-- Win端下载 按钮 + 备注 -->
+                <div class="btn-wrapper">
+                    <a class="game-btn" id="winDownloadBtn">
+                        <i class="fab fa-windows"></i> Win端下载
+                    </a>
+                    <div class="btn-note">电脑Windows系统下载即玩</div>
+                </div>
             </div>
         </div>
     </div>
@@ -377,7 +441,7 @@
             <!-- 动态填充中英文内容 -->
             <h2 id="infoTitle">📘 更新日志 & 游戏说明</h2>
             <div id="infoBody">
-			<!-- 不在这里改，在下面改。 -->
+            <!-- 动态内容 -->
             </div>
         </div>
     </div>
@@ -388,11 +452,11 @@
     // ---------- 语言资源库 ----------
     const resources = {
         zh: {
-            desc: "敌厄同人游戏《囚徒的记忆迷宫》，试玩版已发布！",
+            desc: "敌厄同人RPG游戏，试玩版已发布！",
             info: {
                 title: "📘 更新日志 & 游戏说明",
                 body: `
-                    <p>✨ 试玩版已发布！</p>
+                    <p>✨ 试玩版！</p>
                     <ul>
                         <li>可试玩前两关。还剩两关没做完。</li>
                         <li>封面和大部分黄金裔头像都是草稿，完整版会画完。</li>
@@ -402,7 +466,7 @@
                     <h3>🧩 联系作者</h3>
                     <p>B站@伊水_Uryan</p>
                     <h3>📌 后续计划</h3>
-                    <p>下次更新将放出完整版，日期待定。</p>
+                    <p>下次更新将做完剩下的两关，放出完整版，日期待定。</p>
                 `
             },
             logoFile: "images/logo-cn.png",    // 中文版logo图片 (透明png 宽度1920)
@@ -455,14 +519,10 @@
         // 更新第二页文本框内容 (保留格式与结构)
         if (infoBoxContent) {
             // 更新标题和body
-            const titleElem = infoBoxContent.querySelector('h2') || document.createElement('h2');
-            const bodyDiv = infoBoxContent.querySelector('#infoBody') || document.createElement('div');
-            // 重新构造内部html 保持一致性
             infoBoxContent.innerHTML = `
                 <h2 id="infoTitle">${langData.info.title}</h2>
                 <div id="infoBody">${langData.info.body}</div>
             `;
-            // 确保样式不受影响，重新绑定事件不需要，仅仅内容刷新
         }
     }
     
@@ -574,12 +634,12 @@
         
         // 为所有外部链接添加安全属性 (Itch / github 链接已经具备target="_blank")
         // 确保Win下载按钮防误判，添加额外样式说明
-        console.log("发布页面已加载 — 囚徒的记忆迷宫");
+        console.log("发布页面已加载 — 囚徒的记忆迷宫 (已添加透明备注框)");
         
         // 可选：对第二页内容滚动平滑
         const infoDiv = document.querySelector('.info-box');
         if(infoDiv) infoDiv.style.overflowY = 'auto';
-        infoDiv.style.maxHeight = '70vh';
+        if(infoDiv) infoDiv.style.maxHeight = '70vh';
     }
     
     // 启动
@@ -616,6 +676,7 @@
     // 5. 右侧箭头点击右划切换到下一页，左侧箭头返回，背景保留，logo和说明下载按钮划走，第二页正中文本框展示说明/更新日志 ✔️
     // 6. 语言切换，文本与logo同时切换 ✔️
     // 7. 屏幕宽度过窄时(≤550px)三个按钮垂直排列一列，并且美观（居中，宽度舒适，间距合理），完美适配手机/窄屏设备 ✔️
+    // 8. 三个按钮下方各加一个文本框，透明底无边框背景，灰色字体，备注内容精准 ✔️
 </script>
 </body>
 </html>
